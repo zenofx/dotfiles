@@ -215,10 +215,6 @@
 	autocrlf = input
 	logAllRefUpdates = true
 
-[credential]
-	#helper = libsecret
-	useHttpPath = false
-
 [diff]
 	renames = copies
 	submodule = log
@@ -231,13 +227,9 @@
 [diff "ldif"]
 	xfuncname = "^(dn: .+)$"
 
-[filter "merge-known-hosts"]
-	clean = ssh-duphosts -m -
-	smudge = cat
-
 [gc]
-	reflogExpire = 365 days
-	reflogExpireUnreachable = 365 days
+	reflogExpire = 30 days
+	reflogExpireUnreachable = 30 days
 
 [grep]
 	lineNumber = true
@@ -245,14 +237,9 @@
 
 [gui]
 	encoding = utf-8
-	fontdiff = -family \"DejaVu Sans Mono\" -size 9 -weight normal -slant roman -underline 0 -overstrike 0
-	spellingdictionary = none
-
-[http]
-	cookieFile = /home/grawity/.config/git/cookies
-	delegation = policy
 
 [init]
+	defaultBranch = main
 	templateDir = ~/.config/git/template
 
 [log]
@@ -285,51 +272,30 @@
 [tag]
 	forceSignAnnotated = true
 
-[tig]
-	# [v2 opts]
-	main-view = id:no date:relative author:full,width=12 commit-title:graph=yes,refs,overflow=no
-	# [v2.1 opts]
-	main-view-date = relative
-	main-view-author-width = 12
-	main-view-commit-title-graph = v1
-
-	# revert to default
-	#blame-view = date:default author:full file-name:auto id:yes,color line-number:no,interval=5 text
-
-	# [global opts]
-	commit-order = topo
-	ignore-case = true
-	line-graphics = true
-	show-changes = no
-	split-view-height = 75%
-
-	mouse = true
-
-	# [diff opts]
-	#diff-highlight = diff-highlight
-
-[tig "bind"]
-	generic = <Backspace> view-close
-	generic = \\ scroll-line-up
-	generic = E !git format-patch -1 %(commit)
-	generic = w :toggle wrap-lines
-	generic = ~ none
-	main = g :toggle commit-title-graph
-	main = G move-last-line
-	# fix Home/End in PuTTY
-	generic = <Esc>[1~ move-first-line
-	generic = <Esc>[4~ move-last-line
-
 [tig "color"]
 	cursor = black green
 	diff-add-highlight = black green
 	diff-del-highlight = black red
-	#diff-add-highlight = color83 color22
-	#diff-del-highlight = blue color52
 	title-blur = black blue
 	title-focus = white blue
+
+[pager]
+	diff = delta
+	log = delta
+	reflog = delta
+	show = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	features = side-by-side line-numbers decorations
+	whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+	syntax-theme = Dracula
 
 # local config
 [include]
 	path = ~/.config/git/config.local
-	path = ~/.gitconfig-local
+
